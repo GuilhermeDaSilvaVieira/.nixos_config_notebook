@@ -1,5 +1,6 @@
 {
 	"layer": "top",
+	"position": "bottom",
 	"modules-left": ["river/tags", "custom/temperature"],
 	"modules-center": ["river/window"],
 	"modules-right": [
