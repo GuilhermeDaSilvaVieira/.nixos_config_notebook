@@ -16,6 +16,7 @@
       exfat
       lm_sensors
       git
+      brightnessctl
 
       libnotify
       exiftool

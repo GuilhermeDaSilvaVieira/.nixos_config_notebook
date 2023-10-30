@@ -123,6 +123,72 @@
   )
 )
 
+(defpoll battery_percent :interval "60s" "cat /sys/class/power_supply/BAT?/capacity 2>/dev/null | head -1")
+
+(
+ defwidget battery []
+  (
+   button
+    :class "icons"
+    :tooltip "Battery: ${battery_percent}%"
+     {
+       battery_percent == 0 ? "󰂎" :
+       battery_percent <= 10 ? "󰁺" :
+       battery_percent <= 20 ? "󰁻" :
+       battery_percent <= 30 ? "󰁼" :
+       battery_percent <= 40 ? "󰁽" :
+       battery_percent <= 50 ? "󰁾" :
+       battery_percent <= 60 ? "󰁿" :
+       battery_percent <= 70 ? "󰂀" :
+       battery_percent <= 80 ? "󰂁" :
+       battery_percent <= 90 ? "󰂂" : "󰁹"
+     }
+  )
+)
+ 
+(defpoll brightness_percent :interval "1s" "scripts/brightness --get_brightness | awk -F '%' '{print $1}'")
+
+(
+ defwidget brightness []
+ (
+  eventbox
+   :onscroll "echo {} | sed -e 's/up/--inc/g' -e 's/down/--dec/g' | xargs brightness"
+  (
+   button
+    :class "icons"
+    :tooltip "Brightness ${battery_percent}%"
+     {
+       brightness_percent <= 30 ? "󰃞" : 
+       brightness_percent <= 60 ? "󰃟" : "󰃠"
+     }
+  )
+ )
+)
+
+(defpoll wifi_name :interval "1s" "scripts/wifi --get_name")
+(defpoll wifi_status :interval "1s" "scripts/wifi --get_status")
+(defpoll wifi_strengh :interval "1s" "scripts/wifi --get_strengh")
+
+(
+ defwidget wifi []
+ (
+  eventbox
+   :cursor "pointer"
+  (
+   button
+    :class "icons"
+    :onclick "scripts/on-off"
+    :tooltip "${wifi_name}"
+     {
+      wifi_status == "down" || wifi_strengh == 0 ? "󰤯" :
+      wifi_status == "up" && wifi_strengh <= 20 ? "󰤟" :
+      wifi_status == "up" && wifi_strengh <= 40 ? "󰤢" :
+      wifi_status == "up" && wifi_strengh <= 70 ? "󰤥" : "󰤨"
+     }
+  ) 
+ )
+)
+
 (
   defwidget left []
   (
@@ -134,7 +200,9 @@
 
     (taglist)
   )
-)  ( defwidget center []
+)
+
+( defwidget center []
   (
     box
     :class "center"
@@ -167,6 +235,9 @@
         :angle 90
       )
     )
+    (brightness)
+    (wifi)
+    (battery)
     (
       label
       :text username
