@@ -1,6 +1,6 @@
 { ... }: {
   networking = {
-    hostName = "ju";
+    hostName = "nami";
     networkmanager.enable = true;
 
     firewall = {
