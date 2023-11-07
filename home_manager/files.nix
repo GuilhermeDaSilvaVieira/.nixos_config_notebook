@@ -1,8 +1,8 @@
 { config, ... }: {
   home.file = {
     # Dotfiles
-    "${config.xdg.configHome}/cava".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config/.dotfiles/cava";
-    "${config.xdg.configHome}/helix".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config/.dotfiles/helix";
+    "${config.xdg.configHome}/cava".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config_notebook/.dotfiles/cava";
+    "${config.xdg.configHome}/helix".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config_notebook/.dotfiles/helix";
 
     "${config.home.homeDirectory}/.local/share/applications/spotify-adblock.desktop".text = '' 
         [Desktop Entry]
