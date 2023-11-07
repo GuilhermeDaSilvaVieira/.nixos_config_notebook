@@ -1,7 +1,13 @@
 # This is your system's configuration file.
 # Use this to configure your system environment (it replaces /etc/nixos/configuration.nix)
-
-{ inputs, outputs, lib, config, ... }: {
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/nixos):
@@ -12,19 +18,7 @@
     # inputs.hardware.nixosModules.common-ssd
 
     # You can also split up your configuration and import pieces of it here:
-    ./users.nix
-    ./networking.nix
-    ./boot.nix
-    ./services
-    ./security.nix
-    ./environment
-    ./programs
-    ./hardware
-    ./i18n.nix
-    ./xdg.nix
-    ./fonts.nix
-    ./console.nix
-    ./time.nix
+    # ./users.nix
 
     # Import your generated (nixos-generate-config) hardware configuration
     ./hardware-configuration.nix
@@ -36,38 +30,15 @@
       # Add overlays your own flake exports (from overlays and pkgs dir):
       outputs.overlays.additions
       outputs.overlays.modifications
-      outputs.overlays.stable-packages
+      outputs.overlays.unstable-packages
 
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
 
-      (final: prev: { 
-        awesome = inputs.nixpkgs-f2k.packages.${final.system}.awesome-luajit-git;
-        # river = inputs.nixpkgs-f2k.packages.${final.system}.river-git;
-
-        # discord = prev.discord.overrideAttrs( _: {
-        #   src = builtins.fetchTarball {
-        #     url = "https://discord.com/api/download?platform=linux&format=tar.gz";
-        #     sha256 = "0pml1x6pzmdp6h19257by1x5b25smi2y60l1z40mi58aimdp59ss";
-        #   };
-        # });
-
-        ristate = prev.ristate.overrideAttrs(oldAttrs: rec {
-          version = "master";
-
-          src = prev.fetchFromGitLab {
-            owner = "snakedye";
-            repo = "ristate";
-            rev = "92e989f26cadac69af1208163733e73b4cf447da";
-            hash = "sha256-6slH7R6kbSXQBd7q38oBEbngaCbFv0Tyq34VB1PAfhM";
-          };
-
-          cargoDeps = oldAttrs.cargoDeps.overrideAttrs (lib.const {
-            inherit src;
-            outputHash = "sha256-fOo9C0dNL9dYy5wXq/yEDqOV0OhOTEY42XK8ShpQh6k=";
-          });
-        });
-      })
+      # Or define it inline, for example:
+      # (final: prev: {
+      #   awesome = inputs.nixpkgs-f2k.packages.${final.system}.awesome-luajit-git;
+      # })
     ];
     # Configure your nixpkgs instance
     config = {
@@ -79,7 +50,7 @@
   nix = {
     # This will add each flake input as a registry
     # To make nix3 commands consistent with your flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # This will additionally add your inputs to the system's legacy channels
     # Making legacy nix commands consistent as well, awesome!
@@ -91,12 +62,280 @@
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
     };
+  };
 
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
+  # FIXME: Add the rest of your current configuration
+  environment = { 
+    variables = {
+      FZF_DEFAULT_COMMAND = "fd -H";
+
+      LIBSEAT_BACKEND = "logind";
+
+      WLR_NO_HARDWARE_CURSORS = "1";
+
+      NIXOS_OZONE_WL = "1";
+    
+      QT_QPA_PLATFORM = "wayland;xcb";
     };
+    defaultPackages = [];
+    systemPackages = with pkgs; [
+      # TODO: Rewrite groups of packages like 'Core'
+      #### Core
+      lld
+      gcc
+      glibc
+      clang
+      llvmPackages.bintools
+      wget
+      killall
+      zip
+      unzip
+      exfat
+      lm_sensors
+      git
+
+      #### Party tricks
+      cmatrix
+      cowsay
+      sl
+      lolcat
+      figlet
+ 
+      #### Browser
+      librewolf-wayland
+      (ungoogled-chromium.override {
+        commandLineArgs = [
+          "--force-device-scale-factor=1"
+          "--enable-blink-features=MiddleClickAutoscroll"
+        ];
+      })
+      firefox
+
+      # Emulators
+      (retroarch.override {
+        cores = with libretro; [
+          nestopia
+          snes9x
+          dolphin
+          mupen64plus
+        ];
+      })
+      
+      #### Media
+      yt-dlp
+      cava
+      pavucontrol
+      libreoffice-still
+      cinnamon.warpinator
+
+      # Editors
+      helix 
+
+      #### Proprietary
+      (discord.override {
+        withOpenASAR = true;
+        # withVencord = true;
+      })
+      obsidian
+      spotify
+
+      bat
+      p7zip
+      neofetch
+      fzf
+      fd
+      ripgrep
+      btop
+      eza
+    ];
+  };
+
+  networking = {
+    hostName = "nami";
+    networkmanager.enable = true;
+
+    firewall = {
+      allowedTCPPorts = [
+        42000 # Warpinator
+        42001 # Warpinator
+      ];
+      allowedUDPPorts = [
+        42000 # Warpinator
+        42001 # Warpinator
+      ];
+    };
+  };
+
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [ "i915.force_probe=0116" ];
+    loader = {
+      systemd-boot.enable = true;
+      timeout = 0;
+    };
+  };
+
+  # Set your time zone.
+  time.timeZone = "America/Sao_Paulo";
+  time.hardwareClockInLocalTime = true;
+ 
+  # Fonts
+  fonts = {
+    packages = with pkgs; [
+      nerdfonts
+      noto-fonts
+      noto-fonts-emoji
+      corefonts
+      vistafonts
+    ];
+  };
+
+  users = {
+    defaultUserShell = pkgs.fish;
+    users = {
+      ju = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" "networkmanager" ];
+      };
+    };
+  };
+
+  services.xserver = {
+    enable = true;
+    layout = "br";
+    excludePackages = with pkgs; [ xterm ];
+    displayManager.sddm.enable = true;
+    desktopManager.gnome.enable = true;
+    # windowManager.awesome.enable = true;
+  };
+
+  services.printing = {
+    enable = true;
+    drivers = with pkgs; [ epson-escpr ];
+    browsing = true;
+    defaultShared = true;
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+  };
+
+  services.pipewire = {
+    enable = true;
+    audio.enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+    wireplumber.enable = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
+  services.transmission = {
+    enable = true;
+    package = pkgs.transmission-gtk;
+  };
+
+  security = {
+    sudo.enable = false;
+    rtkit.enable = true;
+    doas = {
+      enable = true;
+      extraRules = [{
+        groups = [ "wheel" ];
+        keepEnv = true;
+        persist = true;
+      }];
+    };
+  };
+
+  programs.fish = {
+    enable = true;
+  };
+
+  programs.dconf = {
+    enable = true;
+  };
+
+  programs.xwayland = {
+    enable = true;
+  };
+
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiIntel         # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
+  hardware.bluetooth = {
+    enable = true;
+  };
+
+  hardware.pulseaudio = {
+    enable = false;
+  };
+
+  i18n = {
+    defaultLocale = "pt_BR.UTF-8"; # Errors, Warnings, ETC ...
+    extraLocaleSettings = {
+      LC_ADDRESS        = "pt_BR.UTF-8";
+      LC_MEASUREMENT    = "pt_BR.UTF-8";
+      LC_MONETARY       = "pt_BR.UTF-8";
+      LC_NAME           = "pt_BR.UTF-8";
+      LC_NUMERIC        = "pt_BR.UTF-8";
+      LC_PAPER          = "pt_BR.UTF-8";
+      LC_TELEFONE       = "pt_BR.UTF-8";
+      LC_TIME           = "pt_BR.UTF-8";
+    };
+  };
+
+  xdg = {
+    portal = {
+      enable = true;
+      wlr.enable = true;
+    };
+    icons.enable = true;
+    mime = {
+      enable = true;
+      defaultApplications = {
+        "text/*" = "org.gnome.TextEditor.desktop";
+        "text/plain" = "org.gnome.TextEditor.desktop";
+        "application/pdf" = "org.gnome.Evince.desktop";
+        "application/rdf+xml" = "org.gnome.Evince.desktop";
+        "application/rss+xml" = "org.gnome.Evince.desktop";
+        "application/xhtml+xml" = "org.gnome.Evince.desktop";
+        "application/xhtml_xml" = "org.gnome.Evince.desktop";
+        "application/xml" = "org.gnome.Evince.desktop";
+        "image/*" = "org.gnome.eog.desktop";
+        "image/png" = "org.gnome.eog.desktop";
+        "image/jpeg" = "org.gnome.eog.desktop";
+        "image/gif" = "org.gnome.eog.desktop";
+        "image/webp" = "org.gnome.eog.desktop";
+        "video/*" = "org.gnome.Totem.desktop";
+        "text/html" = "librewolf.desktop";
+        "text/xml" = "librewolf.desktop";
+        "x-scheme-handler/http" = "librewolf.desktop";
+        "x-scheme-handler/https" = "librewolf.desktop";
+        "x-scheme-handler/about" = "librewolf.desktop";
+        "x-scheme-handler/unknown" = "librewolf.desktop";
+        "x-scheme-handler/mailto" = "librewolf.desktop";
+        "x-scheme-handler/webcal" = "librewolf.desktop";
+      }; 
+    };
+  };
+
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "br-abnt2";
   };
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion

@@ -2,25 +2,25 @@
   gtk = {
     enable = true;
     cursorTheme = {
-      package = pkgs.nordzy-cursor-theme;
-      name = "Nordzy-cursors";
-      size = 48;
+      package = pkgs.volantes-cursors;
+      name = "volantes_cursors";
+      size = 36;
     };
     theme = {
       package = pkgs.nordic;
       name = "Nordic-bluish-accent";
     };
     iconTheme = {
-      package = pkgs.zafiro-icons;
-      name = "Zafiro-icons-Dark";
+      package = pkgs.tela-circle-icon-theme;
+      name = "Tela-circle";
     };
   };
 
   home.pointerCursor = {
     x11.enable = true;
-    package = pkgs.nordzy-cursor-theme;
-    name = "Nordzy-cursors";
-    size = 48;
+    package = pkgs.volantes-cursors;
+    name = "volantes_cursors";
+    size = 36;
     gtk.enable = true;
   };
 }
