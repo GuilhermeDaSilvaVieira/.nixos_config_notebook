@@ -7,7 +7,10 @@
   config,
   pkgs,
   ...
-}: {
+}:
+let 
+  user = "ju";
+in  {
   # You can import other NixOS modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/nixos):
@@ -100,7 +103,7 @@
       sl
       lolcat
       figlet
- 
+
       #### Browser
       librewolf-wayland
       (ungoogled-chromium.override {
@@ -127,6 +130,7 @@
       pavucontrol
       libreoffice-still
       cinnamon.warpinator
+      gimp
 
       # Editors
       helix 
@@ -158,10 +162,16 @@
       allowedTCPPorts = [
         42000 # Warpinator
         42001 # Warpinator
+
+        8384  # Syncthing
+        22000 # Syncthing
       ];
       allowedUDPPorts = [
         42000 # Warpinator
         42001 # Warpinator
+
+        22000 # Syncthing
+        21027 # Syncthing
       ];
     };
   };
@@ -178,7 +188,7 @@
   # Set your time zone.
   time.timeZone = "America/Sao_Paulo";
   time.hardwareClockInLocalTime = true;
- 
+
   # Fonts
   fonts = {
     packages = with pkgs; [
@@ -195,7 +205,7 @@
     users = {
       ju = {
         isNormalUser = true;
-        extraGroups = [ "wheel" "networkmanager" ];
+        extraGroups = [ "wheel" "networkmanager" "syncthing"];
       };
     };
   };
@@ -237,6 +247,13 @@
   services.transmission = {
     enable = true;
     package = pkgs.transmission-gtk;
+  };
+
+  services.syncthing = {
+    enable = true;
+    user = user;
+    dataDir = "/home/${user}/Documents/Obsidian";
+    configDir = "/home/${user}/Documents/Obsidian/.config/syncthing";
   };
 
   security = {
