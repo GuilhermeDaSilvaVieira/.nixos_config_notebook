@@ -109,12 +109,7 @@ in  {
 
       #### Browser
       librewolf-wayland
-      (ungoogled-chromium.override {
-        commandLineArgs = [
-          "--force-device-scale-factor=1"
-          "--enable-blink-features=MiddleClickAutoscroll"
-        ];
-      })
+      ungoogled-chromium
       firefox
 
       # Emulators
