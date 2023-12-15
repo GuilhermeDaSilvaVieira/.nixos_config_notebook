@@ -176,7 +176,12 @@ in  {
 
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "i915.force_probe=0116" ];
+    kernelParams = [ 
+      "i915.force_probe=0116"
+      # Avoid touchpad click to tap (clickpad) bug. For more detail see:
+      # https://wiki.archlinux.org/title/Touchpad_Synaptics#Touchpad_does_not_work_after_resuming_from_hibernate/suspend
+      "psmouse.synaptics_intertouch=0"
+    ];
     loader = {
       systemd-boot.enable = true;
       timeout = 0;
@@ -214,7 +219,6 @@ in  {
     excludePackages = with pkgs; [ xterm ];
     displayManager.sddm.enable = true;
     desktopManager.gnome.enable = true;
-    # windowManager.awesome.enable = true;
   };
 
   services.printing = {
