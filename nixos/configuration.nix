@@ -258,6 +258,8 @@ in  {
     configDir = "/home/${user}/Documents/Obsidian/.config/syncthing";
   };
 
+  services.tlp.enable = true;
+
   security = {
     sudo.enable = false;
     rtkit.enable = true;
