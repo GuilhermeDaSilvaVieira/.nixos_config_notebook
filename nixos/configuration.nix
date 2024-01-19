@@ -258,7 +258,8 @@ in  {
     configDir = "/home/${user}/Documents/Obsidian/.config/syncthing";
   };
 
-  services.tlp.enable = true;
+  # services.tlp.enable = true;
+  services.auto-cpufreq.enable = true;
 
   security = {
     sudo.enable = false;
