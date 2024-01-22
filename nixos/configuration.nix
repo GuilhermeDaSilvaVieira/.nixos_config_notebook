@@ -118,7 +118,7 @@ in  {
           nestopia
           snes9x
           dolphin
-          mupen64plus
+          # mupen64plus
         ];
       })
       
