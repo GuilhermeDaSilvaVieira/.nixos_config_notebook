@@ -121,6 +121,7 @@ in  {
           # mupen64plus
         ];
       })
+      space-cadet-pinball
       
       #### Media
       yt-dlp
