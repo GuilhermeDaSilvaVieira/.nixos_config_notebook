@@ -216,7 +216,7 @@ in  {
 
   services.xserver = {
     enable = true;
-    layout = "br";
+    xkb.layout = "br";
     excludePackages = with pkgs; [ xterm ];
     displayManager.sddm.enable = true;
     desktopManager.gnome.enable = true;
@@ -231,7 +231,7 @@ in  {
 
   services.avahi = {
     enable = true;
-    nssmdns = true;
+    nssmdns4 = true;
     openFirewall = true;
   };
 
