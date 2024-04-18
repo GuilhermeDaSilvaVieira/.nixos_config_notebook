@@ -139,7 +139,7 @@ in  {
         withOpenASAR = true;
         # withVencord = true;
       })
-      obsidian
+      stable.obsidian
       spotify
 
       bat
