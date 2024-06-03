@@ -218,9 +218,10 @@ in  {
     enable = true;
     xkb.layout = "br";
     excludePackages = with pkgs; [ xterm ];
-    displayManager.sddm.enable = true;
     desktopManager.gnome.enable = true;
   };
+
+  services.displayManager.sddm.enable = true;
 
   services.printing = {
     enable = true;
