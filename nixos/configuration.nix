@@ -129,6 +129,7 @@ in
       libreoffice-still
       cinnamon.warpinator
       gimp
+      transmission_4-gtk
 
       # Editors
       helix
@@ -249,11 +250,6 @@ in
     wireplumber.enable = true;
     pulse.enable = true;
     jack.enable = true;
-  };
-
-  services.transmission = {
-    enable = true;
-    package = pkgs.transmission-gtk;
   };
 
   services.syncthing = {
