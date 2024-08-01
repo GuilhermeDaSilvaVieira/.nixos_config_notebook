@@ -265,6 +265,7 @@ in
 
   # services.tlp.enable = true;
   services.auto-cpufreq.enable = true;
+  services.power-profiles-daemon.enable = false;
 
   security = {
     sudo.enable = false;
