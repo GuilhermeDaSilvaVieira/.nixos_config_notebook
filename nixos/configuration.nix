@@ -117,6 +117,7 @@ in
           nestopia
           snes9x
           dolphin
+          blastem
           # mupen64plus
         ];
       })
