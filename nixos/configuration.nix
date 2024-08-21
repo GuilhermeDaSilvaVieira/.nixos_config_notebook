@@ -118,6 +118,7 @@ in
           snes9x
           dolphin
           blastem
+          mame
           # mupen64plus
         ];
       })
