@@ -122,6 +122,8 @@ in
           # mupen64plus
         ];
       })
+      kega-fusion
+
       space-cadet-pinball
 
       #### Media
