@@ -117,12 +117,10 @@ in
           nestopia
           snes9x
           dolphin
-          blastem
-          mame
           # mupen64plus
         ];
       })
-      kega-fusion
+      blastem
 
       space-cadet-pinball
 
