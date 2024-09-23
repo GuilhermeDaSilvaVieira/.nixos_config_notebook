@@ -107,7 +107,8 @@ in
       figlet
 
       #### Browser
-      librewolf-wayland
+      zen
+      mullvad-browser
       ungoogled-chromium
       firefox
 
