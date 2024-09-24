@@ -110,7 +110,6 @@ in
       zen
       mullvad-browser
       ungoogled-chromium
-      firefox
 
       # Emulators
       (retroarch.override {
