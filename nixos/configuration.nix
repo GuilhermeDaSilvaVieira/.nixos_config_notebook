@@ -107,7 +107,7 @@ in
       figlet
 
       #### Browser
-      zen
+      inputs.zen-browser.packages."${system}".specific
       mullvad-browser
       ungoogled-chromium
 
