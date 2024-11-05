@@ -129,7 +129,7 @@ in
       cava
       pavucontrol
       libreoffice-still
-      cinnamon.warpinator
+      localsend
       gimp
       transmission_4-gtk
 
@@ -161,18 +161,20 @@ in
 
     firewall = {
       allowedTCPPorts = [
-        42000 # Warpinator
-        42001 # Warpinator
+        # Syncthing
+        8384
+        22000
 
-        8384 # Syncthing
-        22000 # Syncthing
+        # LocalSend
+        53317
       ];
       allowedUDPPorts = [
-        42000 # Warpinator
-        42001 # Warpinator
+        # Syncthing
+        22000
+        21027
 
-        22000 # Syncthing
-        21027 # Syncthing
+        # LocalSend
+        53317
       ];
     };
   };
