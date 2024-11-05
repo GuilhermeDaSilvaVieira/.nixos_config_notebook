@@ -4,6 +4,7 @@
     # Dotfiles
     "${config.xdg.configHome}/cava".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config_notebook/.dotfiles/cava";
     "${config.xdg.configHome}/helix".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config_notebook/.dotfiles/helix";
+    "${config.xdg.configHome}/fish".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config_notebook/.dotfiles/fish";
 
     "${config.home.homeDirectory}/.local/share/applications/spotify-adblock.desktop".text = ''
       [Desktop Entry]
