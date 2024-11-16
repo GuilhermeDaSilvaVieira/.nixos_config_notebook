@@ -154,7 +154,7 @@ in
       # https://wiki.archlinux.org/title/Touchpad_Synaptics#Touchpad_does_not_work_after_resuming_from_hibernate/suspend
       "psmouse.synaptics_intertouch=0"
     ];
-    boot.loader = {
+    loader = {
       grub = {
         enable = true;
         device = "/dev/sda";
