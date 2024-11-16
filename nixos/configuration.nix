@@ -154,11 +154,20 @@ in
       # https://wiki.archlinux.org/title/Touchpad_Synaptics#Touchpad_does_not_work_after_resuming_from_hibernate/suspend
       "psmouse.synaptics_intertouch=0"
     ];
-    loader = {
+    boot.loader = {
       grub = {
         enable = true;
         device = "/dev/sda";
         useOSProber = true;
+        extraConfig = ''
+          # Hide GRUB menu by default (instant boot)
+          set timeout=0
+
+          # If Shift is pressed, show the GRUB menu
+          if keystatus --shift ; then
+            set timeout=-1  # Show the GRUB menu indefinitely if Shift is pressed
+          fi
+        '';
       };
     };
   };
