@@ -147,6 +147,7 @@ in
       # Backup
       rsync
 
+      starship
       bat
       p7zip
       neofetch
