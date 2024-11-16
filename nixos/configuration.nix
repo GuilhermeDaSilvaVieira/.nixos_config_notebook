@@ -126,7 +126,6 @@ in
 
       #### Media
       yt-dlp
-      cava
       pavucontrol
       libreoffice-still
       localsend

@@ -2,7 +2,6 @@
 {
   home.file = {
     # Dotfiles
-    "${config.xdg.configHome}/cava".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config_notebook/.dotfiles/cava";
     "${config.xdg.configHome}/helix".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config_notebook/.dotfiles/helix";
     "${config.xdg.configHome}/fish".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config_notebook/.dotfiles/fish";
     "${config.xdg.configHome}/starship.toml".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.nixos_config_notebook/.dotfiles/starship/starship.toml";
