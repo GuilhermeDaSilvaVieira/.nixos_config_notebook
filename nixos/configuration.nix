@@ -144,6 +144,9 @@ in
       obsidian
       spotify
 
+      # Backup
+      rsync
+
       bat
       p7zip
       neofetch
