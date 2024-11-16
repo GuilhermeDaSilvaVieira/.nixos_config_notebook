@@ -224,6 +224,21 @@ in
     user = user;
     dataDir = "/home/${user}/Documents/Obsidian";
     configDir = "/home/${user}/Documents/Obsidian/.config/syncthing";
+    overrideDevices = true;
+    overrideFolders = true;
+    settings = {
+      devices = {
+        "android" = {
+          id = "D2Y4UI3-JK6KKC7-B76MTHL-XAQD6HH-PLTVUOO-JIAHYXW-QSOPFQ5-F7BWJQZ";
+        };
+      };
+      folders = {
+        "Obsidian" = {
+          path = "/home/${user}/Documents/Obsidian";
+          devices = [ "android" ];
+        };
+      };
+    };
   };
 
   services.auto-cpufreq.enable = true;
