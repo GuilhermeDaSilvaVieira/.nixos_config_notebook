@@ -48,7 +48,7 @@ in
     config = {
       # Disable if you don't want unfree packages
       allowUnfree = true;
-      permittedInsecurePackages = [ "electron-25.9.0" ];
+      # permittedInsecurePackages = [ "electron-25.9.0" ];
     };
   };
 
@@ -141,7 +141,7 @@ in
         withOpenASAR = true;
         # withVencord = true;
       })
-      stable.obsidian
+      obsidian
       spotify
 
       bat
