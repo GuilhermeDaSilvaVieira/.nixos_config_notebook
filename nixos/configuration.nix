@@ -148,6 +148,7 @@ in
       rsync
 
       starship
+      zoxide
       bat
       p7zip
       neofetch
