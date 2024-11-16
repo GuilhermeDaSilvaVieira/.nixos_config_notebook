@@ -108,7 +108,7 @@ in
 
       #### Browser
       inputs.zen-browser.packages."${system}".generic
-      mullvad-browser
+      # mullvad-browser
       ungoogled-chromium
 
       # Emulators
@@ -238,18 +238,18 @@ in
     displayManager.gdm.enable = true;
   };
 
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [ epson-escpr ];
-    browsing = true;
-    defaultShared = true;
-  };
+  # services.printing = {
+  #   enable = true;
+  #   drivers = with pkgs; [ epson-escpr ];
+  #   browsing = true;
+  #   defaultShared = true;
+  # };
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+  # services.avahi = {
+  #   enable = true;
+  #   nssmdns4 = true;
+  #   openFirewall = true;
+  # };
 
   services.pipewire = {
     enable = true;
