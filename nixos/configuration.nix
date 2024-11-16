@@ -339,5 +339,5 @@ in
     keyMap = "br-abnt2";
   };
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 }
