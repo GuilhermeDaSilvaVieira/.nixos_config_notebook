@@ -233,9 +233,8 @@ in
     xkb.layout = "br";
     excludePackages = with pkgs; [ xterm ];
     desktopManager.gnome.enable = true;
+    displayManager.gdm.enable = true;
   };
-
-  services.displayManager.gdm.enable = true;
 
   services.printing = {
     enable = true;
