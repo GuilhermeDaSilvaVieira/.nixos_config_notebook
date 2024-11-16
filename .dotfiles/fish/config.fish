@@ -30,7 +30,7 @@ function nsync
     rm -rf .git/
 
     echo "Rebuilding..."
-    doas nixos-rebuild switch --flake .
+    doas nixos-rebuild switch --flake .#
 
     echo "Removing copy..."
     rm -rf $HOME/.nixos_config_notebook_without_git/
