@@ -232,7 +232,7 @@ in
     desktopManager.gnome.enable = true;
   };
 
-  services.displayManager.sddm.enable = true;
+  services.displayManager.gdm.enable = true;
 
   services.printing = {
     enable = true;
