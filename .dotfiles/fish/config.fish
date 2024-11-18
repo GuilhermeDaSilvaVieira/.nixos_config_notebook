@@ -32,6 +32,9 @@ function nsync
     echo "Rebuilding..."
     doas nixos-rebuild switch --flake .#
 
+    echo "Updating grub entry"
+    doas /run/current-system/bin/switch-to-configuration boot
+
     echo "Removing copy..."
     rm -rf $HOME/.nixos_config_notebook_without_git/
 
