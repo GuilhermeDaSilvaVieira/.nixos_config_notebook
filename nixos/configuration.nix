@@ -228,14 +228,14 @@ in
     overrideFolders = true;
     settings = {
       devices = {
-        "android" = {
-          id = "D2Y4UI3-JK6KKC7-B76MTHL-XAQD6HH-PLTVUOO-JIAHYXW-QSOPFQ5-F7BWJQZ";
+        "android_ju" = {
+          id = "4ELWBGB-I2GAH7T-PWNVNR3-GLYT7TU-I6NIQTD-CRPSHLG-22JEIYB-MOJJIAV";
         };
       };
       folders = {
         "Obsidian" = {
           path = "/home/${user}/Documents/Obsidian";
-          devices = [ "android" ];
+          devices = [ "android_ju" ];
         };
       };
     };
