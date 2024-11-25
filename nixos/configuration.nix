@@ -241,6 +241,9 @@ in
     };
   };
 
+  # Fix 20s to open gtk apps
+  services.dbus.implementation = "broker";
+
   services.auto-cpufreq.enable = true;
   services.power-profiles-daemon.enable = false;
 
