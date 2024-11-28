@@ -100,8 +100,8 @@ in
 
       #### Proprietary
       (discord.override {
-        withOpenASAR = true;
-        # withVencord = true;
+        # withOpenASAR = true;
+        withVencord = true;
       })
       obsidian
       spotify
