@@ -177,9 +177,7 @@ in
 
   fonts = {
     packages = with pkgs; [
-      nerd-fonts
-      0.0
-      xproto
+      nerd-fonts._0xproto
       nerd-fonts._3270
       nerd-fonts.agave
       nerd-fonts.anonymice
