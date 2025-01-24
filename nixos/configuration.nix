@@ -314,6 +314,8 @@ in
   services.auto-cpufreq.enable = true;
   services.power-profiles-daemon.enable = false;
 
+  services.pulseaudio.enable = false;
+
   security = {
     sudo.enable = false;
     rtkit.enable = true;
@@ -349,10 +351,6 @@ in
       vaapiVdpau
       libvdpau-va-gl
     ];
-  };
-
-  hardware.pulseaudio = {
-    enable = false;
   };
 
   i18n = {
