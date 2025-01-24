@@ -75,14 +75,14 @@ in
       ungoogled-chromium
 
       # Emulators
-      (retroarch.withCores {
-        cores = with cores; [
+      (retroarch.withCores (
+        cores: with cores; [
           nestopia
           snes9x
           dolphin
           # mupen64plus
-        ];
-      })
+        ]
+      ))
       blastem
 
       space-cadet-pinball
