@@ -75,8 +75,8 @@ in
       ungoogled-chromium
 
       # Emulators
-      (retroarch.override {
-        cores = with libretro; [
+      (retroarch.withCores {
+        cores = with cores; [
           nestopia
           snes9x
           dolphin
