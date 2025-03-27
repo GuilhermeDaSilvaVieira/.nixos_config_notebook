@@ -108,7 +108,6 @@ in
 
       # Backup
       rsync
-      stable.auto-cpufreq
 
       starship
       zoxide
@@ -312,7 +311,9 @@ in
   # Fix 20s to open gtk apps
   services.dbus.implementation = "broker";
 
-  services.auto-cpufreq.enable = true;
+  # services.auto-cpufreq.enable = true;
+  services.thermald.enable = true;
+  services.tlp.enable = true;
   services.power-profiles-daemon.enable = false;
 
   services.pulseaudio.enable = false;
