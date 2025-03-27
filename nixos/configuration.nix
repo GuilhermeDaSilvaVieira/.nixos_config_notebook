@@ -108,6 +108,7 @@ in
 
       # Backup
       rsync
+      stable.auto-cpufreq
 
       starship
       zoxide
